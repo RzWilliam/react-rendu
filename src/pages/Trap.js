@@ -4,7 +4,7 @@ import API from '../components/API'
 export default function Trap() {
   return (
     <>
-        <API type="type=Trap%20Card"/>
+        <API type="Trap%20Card"/>
     </>
   )
 }
