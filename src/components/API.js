@@ -45,20 +45,25 @@ export default function API(props){
             <section className="container">
                 {items.map((data, i) => (
                       <div key={i} className="card">
-                        <img src={data.card_images[0].image_url} alt={data.name}/>
+                        <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
+                        <div className="dark"></div>
+                        <img src={data.card_images[0].image_url_cropped} alt={data.name} className="cropped"/>
+                        <p className="title"> {data.name} </p>
                       </div>
                 ))}
             </section>
-            {page > 0 && 
-              <button onClick={previousPage}>
-                Previous Page
-              </button>
-            }
-            {items.length > 19 &&
-              <button onClick={nextPage}>
-                Next Page
-              </button>
-            }
+            <div className="btn_prev_next">
+              {page > 0 && 
+                <button onClick={previousPage}>
+                  Previous Page
+                </button>
+              }
+              {items.length > 19 &&
+                <button onClick={nextPage}>
+                  Next Page
+                </button>
+              }
+            </div>
         </>
     )
 }

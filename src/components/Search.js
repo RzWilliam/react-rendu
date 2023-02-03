@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import loupe from "../assets/loupe.svg"
 
 export default function Search() {
     const [search, setSearch] = useState('')
@@ -7,7 +8,8 @@ export default function Search() {
         setSearch(e.target.value)
     }
   return (
-    <div>
+    <div className='searchbar'>
+        <img src={loupe} className='loupe'></img>
         <input placeholder='Search card ...' value={search} onChange={handleChange}/>
     </div>
   )
