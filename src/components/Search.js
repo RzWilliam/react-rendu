@@ -1,3 +1,5 @@
+
+import loupe from "../assets/loupe.svg"
 import React, { useContext, useState } from 'react'
 import { ApiContext } from '../context/ApiContext'
 
@@ -18,8 +20,9 @@ export default function Search({stateChanger}) {
     }
 
   return (
-    <div>
-        <input placeholder='Search card ...' value={search} onChange={handleChange} onKeyDown={handleKeyDown}/>
+    <div className='searchbar'>
+        <img src={loupe} className='loupe'></img>
+        <input placeholder='Search card ...' value={search} onChange={handleChange}/>
     </div>
   )
 }
