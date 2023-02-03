@@ -9,7 +9,7 @@ export default function Navbar () {
     <section className='section_nav'>
       <div className='navbar'>
         <div className='logo'>
-        <a href=''><img src={logo}></img></a>
+        <Link to='/'><img src={logo} alt="Logo"></img></Link>
         </div>
         <div>
           <Link to="/">Home</Link>
@@ -17,7 +17,7 @@ export default function Navbar () {
           <Link to="/cards/monster">Monster Cards</Link>
         </div>
         <div className='avatar'>
-          <a href=''><img src={avatar}></img></a>
+          <a href=''><img src={avatar} alt="Avatar"></img></a>
         </div>
       </div>
       <img className='banner' src={banner}></img>
