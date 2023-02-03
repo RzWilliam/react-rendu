@@ -1,9 +1,10 @@
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import About from './pages/About';
 import './style.scss'
 import {Routes, Route} from "react-router-dom"
-import Profil from './pages/Profil';
+import Spell from './pages/Spell';
+import Trap from './pages/Trap';
+import Monster from './pages/Monster';
 
 
 function App() {
@@ -12,8 +13,9 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/about/:name' element={<Profil/>}/>
+        <Route path='/cards/spell' element={<Spell/>}/>
+        <Route path='/cards/trap' element={<Trap/>}/>
+        <Route path='/cards/monster' element={<Monster/>}/>
       </Routes>
     </div>
   );
