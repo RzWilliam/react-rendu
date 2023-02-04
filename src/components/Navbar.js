@@ -13,14 +13,15 @@ export default function Navbar () {
         </div>
         <div>
           <Link to="/">Home</Link>
-          <Link to="/cards/spell">Spell Cards</Link>          <Link to="/cards/trap">Trap Cards</Link>
+          <Link to="/cards/spell">Spell Cards</Link> 
+          <Link to="/cards/trap">Trap Cards</Link>
           <Link to="/cards/monster">Monster Cards</Link>
         </div>
         <div className='avatar'>
           <a href=''><img src={avatar} alt="Avatar"></img></a>
         </div>
       </div>
-      <img className='banner' src={banner}></img>
+      <img className='banner' src={banner} alt="Banner"></img>
     </section>
   )
 }
