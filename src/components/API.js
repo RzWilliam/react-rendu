@@ -1,26 +1,17 @@
 // import md5 from "js-md5";
 import React, { useContext } from "react";
 import { ApiContext } from "../context/ApiContext";
+import Buttons from "./Buttons";
+import Cards from "./Cards";
 
 export default function API(props){
 
-    const [error, setError] = React.useState(null);
     const [isLoaded, setIsLoaded] = React.useState(false);
-    const [items, setItems] = React.useState([]);
-    const {page, setPage} = useContext(ApiContext)
+    const {page, setItems, setError, type, race, level, attribute} = useContext(ApiContext)
 
-    function previousPage(){
-      setPage(page-1)
-      window.scrollTo(0, 0)
-    }
-
-    function nextPage(){
-        setPage(page + 1)
-        window.scrollTo(0, 0)
-    }
-
-    let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page*20}${props.type ? "&type="+props.type : ''}${props.fname ? "&fname="+props.fname : ''}${props.atk ? "&atk="+props.atk : ''}`
+    let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page*20}${type ?type : ''}${props.fname ? "&fname="+props.fname : ''}${race ? race : ''}${level ? '&level='+level : ''}${attribute ? '&attribute='+attribute : ''}`
     React.useEffect(() => {
+        // console.log(url)
         fetch(url)
           .then(res => res.json())
           .then(
@@ -42,29 +33,8 @@ export default function API(props){
 
     return(
         <>
-            <section className="container">
-                {items.map((data, i) => (
-                      <div key={i} className="card">
-                        <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
-                        <div className="dark"></div>
-                        <img src={data.card_images[0].image_url_cropped} alt={data.name} className="cropped"/>
-                        <p className="title"> {data.name} </p>
-                      </div>
-                ))}
-                {items.length < 1 && error && <p>{error}</p>}
-            </section>
-            <div className="btn_prev_next">
-              {page > 0 && 
-                <button onClick={previousPage}>
-                  Previous Page
-                </button>
-              }
-              {items.length > 19 &&
-                <button onClick={nextPage}>
-                  Next Page
-                </button>
-              }
-            </div>
+            <Cards/>
+            <Buttons/>
         </>
     )
 }
