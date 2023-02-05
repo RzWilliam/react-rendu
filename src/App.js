@@ -15,7 +15,7 @@ function App() {
   const getTheme = () =>{
     return JSON.parse(localStorage.getItem("theme")) || false
   }
-
+  
   const [theme, setTheme] = useState(getTheme());
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(theme))
@@ -36,19 +36,9 @@ function App() {
 
   return (
     <div className={`App ${theme ? "darkmode" : ""} ${anim ? "animoff" : ""}`}>
-      <div className='checkbox'>
-        <div className='div_darkmode'>
-          <input type="checkbox" onChange={()=>setTheme(!theme)} checked={theme ? "true": ""}/>
-          <span>Dark mode</span>
-        </div>
-        <div className='div_anim'>
-          <input type="checkbox" onChange={()=>setAnim(!anim)} checked={anim ? "true": ""}/>
-          <span>Card animation </span>
-        </div>
-      </div>
       <SignUpModal />
       <SignInModal />
-      <Navbar/>
+      <Navbar theme={theme} setTheme={setTheme} anim={anim} setAnim={setAnim}/>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path="/private" element={<Private />}>

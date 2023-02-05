@@ -8,7 +8,7 @@ import {signOut} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
 import {auth} from "../firebase-config"
 
-export default function Navbar () {
+export default function Navbar (props) {
 
   const {currentUser, toggleModals} = useContext(UserContext)
   const [mouseOver, setMouseOver] = useState(false)
@@ -42,7 +42,7 @@ export default function Navbar () {
         <div className='avatar dropdown' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseOut}>
           <Link to='/private' ><img src={avatar} alt="Avatar"></img></Link>
           {mouseOver &&
-          <div class="dropdown-menu" style={{margin : "50px 0 0", display: 'flex', flexDirection: 'column'}} aria-labelledby="dropdownMenuButton">
+          <div className="dropdown-menu" style={{margin : "40px 0 0", display: 'flex', flexDirection: 'column', width: "auto"}} aria-labelledby="dropdownMenuButton">
           {!currentUser &&
           <>
           <p 
@@ -64,8 +64,15 @@ export default function Navbar () {
             Log Out
           </p>
           }
+            <p className='dropdown-item' onClick={()=>props.setTheme(!props.theme)}>
+              {props.theme ? 'Disable' : 'Active'} Darkmode
+            </p>
+            <p className='dropdown-item' onClick={()=>props.setAnim(!props.anim)}>
+            {props.anim ? 'Active' : 'Disable'} card animation
+            </p>
           </div>
           }
+          
         </div>
       </div>
       <img className='banner' src={banner} alt="Banner"></img>
