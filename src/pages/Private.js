@@ -21,6 +21,7 @@ export default function Private() {
 
   let favList = [{}]
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0')
+  console.log(getArray)
   for (let i = 0; i < getArray.length; i++){
     let x = getArray[i]
     favList[i] = JSON.parse(localStorage.getItem('favItem' + [x]))

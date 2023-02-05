@@ -30,26 +30,26 @@ export default function Cards() {
       setCardClicked(null)
     }
 
-    function addFav(props){
+    function addFav(i, data){
       let array = favorites;
       let addArray = true;
       array.map((item, key) =>{
-        if(item === props.i){
+        if(item === i){
           array.splice(key, 1)
           addArray = false
         }
       });
       if(addArray){
-        array.push(props.i)
+        array.push(i)
       }
       setFavorites([...array])
       localStorage.setItem("favorites", JSON.stringify(favorites))
 
-      let storage = localStorage.getItem('favItem' + (props.i) || 0)
+      let storage = localStorage.getItem('favItem' + (i) || 0)
       if(storage === null){
-        localStorage.setItem(('favItem' + (props.i)), JSON.stringify(props.data))
+        localStorage.setItem(('favItem' + (i)), JSON.stringify(data))
       } else{
-        localStorage.removeItem('favItem' + (props.i))
+        localStorage.removeItem('favItem' + (i))
       }
     }
 
@@ -66,10 +66,10 @@ export default function Cards() {
                         <div className="allcards">
                           {currentUser &&
                             <>
-                              {favorites.includes(i) ? (
-                                <IoIosHeart onClick={() => addFav({data, i})} style={{color: 'red'}}/>
+                              {favorites.includes(data.id) ? (
+                                <IoIosHeart onClick={() => addFav(data.id, data)} style={{color: 'red'}}/>
                               ): (
-                                <IoIosHeartEmpty onClick={() => addFav({data, i})} style={{color: 'red'}}/>
+                                <IoIosHeartEmpty onClick={() => addFav(data.id, data)} style={{color: 'red'}}/>
                               )}
                             </> 
                           }
