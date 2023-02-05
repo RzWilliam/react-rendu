@@ -21,7 +21,6 @@ export default function Private() {
 
   let favList = [{}]
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0')
-  console.log(getArray)
   for (let i = 0; i < getArray.length; i++){
     let x = getArray[i]
     favList[i] = JSON.parse(localStorage.getItem('favItem' + [x]))
@@ -45,6 +44,8 @@ export default function Private() {
       <p className='text-center mt-4'>Your likes :</p>
       <div className="container">
         
+        {favList[0].id !== undefined &&
+        <>
         {favList.map((data, i) => (
           <div className="allcards" style={{cursor : 'pointer'}}>
             <div key={i} className="card" onClick={() => handleClick(data)}>
@@ -55,6 +56,8 @@ export default function Private() {
               </div>
             </div>
         ))}
+        </>
+        }
 
         {cardClicked && 
                   
