@@ -103,6 +103,11 @@
 
         .avatar{
             justify-content: end;
+
+            .dropdown-item{
+                margin: 0;
+                cursor: pointer;
+            }
         }
     }
 
