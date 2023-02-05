@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ApiContext } from '../context/ApiContext'
 import close from "../assets/close.svg"
 import DARK from "../assets/monsters/DARK.png"
@@ -11,32 +11,76 @@ import WIND from "../assets/monsters/WIND.png"
 import SPELL from "../assets/monsters/SPELL.png"
 import TRAP from "../assets/monsters/TRAP.png"
 import lvl from "../assets/monsters/LEVEL.png"
+import {UserContext} from "../context/userContext"
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 export default function Cards() {
     const {items, error} = useContext(ApiContext)
+    const {currentUser} = useContext(UserContext)
     const [cardClicked, setCardClicked] = useState(null)
+    
+    const [favorites, setFavorites] = useState([])
+    const getArray =  JSON.parse(localStorage.getItem('favorites') || '0')
+
     function handleClick(e){
-      console.log(e)
       setCardClicked(e)
     }
 
     function handleClose(){
       setCardClicked(null)
     }
-    console.log(items)
+
+    function addFav(props){
+      let array = favorites;
+      let addArray = true;
+      array.map((item, key) =>{
+        if(item === props.i){
+          array.splice(key, 1)
+          addArray = false
+        }
+      });
+      if(addArray){
+        array.push(props.i)
+      }
+      setFavorites([...array])
+      localStorage.setItem("favorites", JSON.stringify(favorites))
+
+      let storage = localStorage.getItem('favItem' + (props.i) || 0)
+      if(storage === null){
+        localStorage.setItem(('favItem' + (props.i)), JSON.stringify(props.data))
+      } else{
+        localStorage.removeItem('favItem' + (props.i))
+      }
+    }
+
+    useEffect(() => {
+      if(getArray !== 0){
+        setFavorites([...getArray])
+      }
+    }, [])
 
   return (
         <>
             <section className="container">
                 {items.map((data, i) => (
-                      <div onClick={() => handleClick(data)} className="allcards" style={{cursor : 'pointer'}}>
-                        <div key={i} className="card">
-                          <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
-                          <div className="dark"></div>
-                          <img src={data.card_images[0].image_url_cropped} alt={data.name} className="cropped"/>
-                          <p className="title"> {data.name} </p>
+                        <div  className="allcards" style={{cursor : 'pointer'}}>
+                          {currentUser &&
+                            <>
+                              {favorites.includes(i) ? (
+                                <IoIosHeart onClick={() => addFav({data, i})} style={{color: 'red'}}/>
+                              ): (
+                                <IoIosHeartEmpty onClick={() => addFav({data, i})} style={{color: 'red'}}/>
+                              )}
+                            </> 
+                          }
+                          <div key={i} className="card" onClick={() => handleClick(data)}>
+                            <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
+                            <div className="dark"></div>
+                            <img src={data.card_images[0].image_url_cropped} alt={data.name} className="cropped"/>
+                            <p className="title"> {data.name} </p> 
+                          </div>
+                          
                         </div>
-                      </div>
                 ))}
                 {items.length < 1 && error && <p>{error}</p>}
 

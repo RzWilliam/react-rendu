@@ -15,7 +15,6 @@ export default function API(props){
     let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page*20}${type ?type : ''}${props.fname ? "&fname="+props.fname : ''}${race ? race : ''}${level ? '&level='+level : ''}${attribute ? '&attribute='+attribute : ''}`
 
     React.useEffect(() => {
-        // console.log(url)
         fetch(url)
           .then(res => res.json())
           .then(
