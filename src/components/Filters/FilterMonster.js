@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 import Dark from '../../assets/monsters/DARK.png'
 import Divine from '../../assets/monsters/DIVINE.png'
@@ -76,13 +76,20 @@ export default function FilterMonster(props) {
     {value: '&type=XYZ Monster', label: <div><img src={XYZ} alt="XYZ"/>XYZ</div>},
     {value: '&type=XYZ Pendulum Effect Monster', label: <div><img src={PendulumXYZ} alt="XYZ Pendulum Effect"/>XYZ Pendulum Effect</div>},
     {value: '&type=Link Monster', label: <div><img src={Link} alt="Link"/>Link</div>},
-    
   ]
+
+  const [temporaryType, setTemporaryType] = useState('')
+
+  function handleTypeChange(e){
+    setTemporaryType(e.value)
+  }
 
   return (
     <>
-        <Select className="select" aria-label=".form-select-lg example" ref={props.monsterType} options={types} placeholder="Choose a type of monster ..."/>
+        <Select className="select" aria-label=".form-select-lg example" ref={props.monsterType} options={types} placeholder="Choose a type of monster ..." onChange={handleTypeChange}/>
+        {temporaryType !== '&type=Link Monster' && 
         <Select className="select" aria-label=".form-select-lg example" ref={props.monsterLevel} options={levels} placeholder="Select a level/rank ..."/>
+        }
         <Select className="select" aria-label=".form-select-lg example" ref={props.monsterAttribute} options={attributes} placeholder="Select an attribute ..."/>
     </>
   )

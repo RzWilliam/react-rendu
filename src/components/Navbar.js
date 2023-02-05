@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import { Link } from 'react-router-dom'
 import logo from "../assets/logo.png"
 import avatar from "../assets/avatar.png"
@@ -11,7 +11,7 @@ import {auth} from "../firebase-config"
 export default function Navbar () {
 
   const {currentUser, toggleModals} = useContext(UserContext)
-  
+  const [mouseOver, setMouseOver] = useState(false)
 
   const navigate = useNavigate()
 
@@ -24,8 +24,12 @@ export default function Navbar () {
     }
   }
 
-  function refreshPage() {
-    window.location.reload(false);
+  function handleMouseEnter(){
+    setMouseOver(true)
+  }
+
+  function handleMouseOut(){
+    setMouseOver(false)
   }
 
 
@@ -33,27 +37,35 @@ export default function Navbar () {
     <section className='section_nav'>
       <div className='navbar'>
         <div className='logo'>
-        <span onClick={refreshPage} style={{cursor: "pointer"}}><img src={logo} alt="Logo"></img></span>
+        <Link to="/" style={{cursor: "pointer"}}><img src={logo} alt="Logo"></img></Link>
         </div>
-        <div className='avatar'>
-          <button 
+        <div className='avatar dropdown' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseOut}>
+          <Link to='/private' ><img src={avatar} alt="Avatar"></img></Link>
+          {mouseOver &&
+          <div class="dropdown-menu" style={{margin : "50px 0 0", display: 'flex', flexDirection: 'column'}} aria-labelledby="dropdownMenuButton">
+          {!currentUser &&
+          <>
+          <p 
           onClick={() => toggleModals("signUp")}
-          className="btn btn-primary">
+            className="dropdown-item">
             Sign Up
-          </button>
-          <button 
+          </p>
+          <p 
             onClick={() => toggleModals("signIn")}
-          className="btn btn-primary ms-2">
+            className="dropdown-item">
             Sign In
-          </button>
-          {currentUser && 
-          <button 
-          onClick={logOut}
-          className="btn btn-danger ms-2">
-            Log Out
-          </button>
+          </p>
+          </>
           }
-          <a href=''><img src={avatar} alt="Avatar"></img></a>
+          {currentUser && 
+          <p 
+          onClick={logOut}
+          className="dropdown-item text-danger">
+            Log Out
+          </p>
+          }
+          </div>
+          }
         </div>
       </div>
       <img className='banner' src={banner} alt="Banner"></img>
