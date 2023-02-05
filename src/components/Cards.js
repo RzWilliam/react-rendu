@@ -63,7 +63,7 @@ export default function Cards() {
         <>
             <section className="container">
                 {items.map((data, i) => (
-                        <div  className="allcards" style={{cursor : 'pointer'}}>
+                        <div className="allcards">
                           {currentUser &&
                             <>
                               {favorites.includes(i) ? (
@@ -73,12 +73,16 @@ export default function Cards() {
                               )}
                             </> 
                           }
-                          <div key={i} className="card" onClick={() => handleClick(data)}>
-                            <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
-                            <div className="dark"></div>
-                            <img src={data.card_images[0].image_url_cropped} alt={data.name} className="cropped"/>
-                            <p className="title"> {data.name} </p> 
+
+                          <div onClick={() => handleClick(data)}>
+                            <div key={i} className="card">
+                              <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
+                              <div className="dark"></div>
+                              <img src={data.card_images[0].image_url_cropped} alt={data.name} className="cropped"/>
+                              <p className="title"> {data.name} </p> 
+                            </div>
                           </div>
+                          
                           
                         </div>
                 ))}

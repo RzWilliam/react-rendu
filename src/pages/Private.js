@@ -44,7 +44,7 @@ export default function Private() {
       <p className='text-center mt-4'>Your likes :</p>
       <div className="container">
         
-        {favList.slice(1).map((data, i) => (
+        {favList.map((data, i) => (
           <div className="allcards" style={{cursor : 'pointer'}}>
             <div key={i} className="card" onClick={() => handleClick(data)}>
               <img src={data.card_images[0].image_url} alt={data.name} className="full_card"/>
