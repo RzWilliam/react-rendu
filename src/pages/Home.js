@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import API from '../components/API'
+import Filter from '../components/Filters/Filter'
 import Search from '../components/Search'
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
   return (
     <div>
         <Search stateChanger={setFname} />
+        <Filter/>
         <API fname={fname ? fname : null}/>
     </div>
   )

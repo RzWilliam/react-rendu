@@ -24,18 +24,16 @@ export default function Navbar () {
     }
   }
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
 
   return (
     <section className='section_nav'>
       <div className='navbar'>
         <div className='logo'>
-        <Link to='/'><img src={logo} alt="Logo"></img></Link>
-        </div>
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/cards/spell">Spell Cards</Link> 
-          <Link to="/cards/trap">Trap Cards</Link>
-          <Link to="/cards/monster">Monster Cards</Link>
+        <span onClick={refreshPage} style={{cursor: "pointer"}}><img src={logo} alt="Logo"></img></span>
         </div>
         <div className='avatar'>
           <button 
