@@ -13,11 +13,11 @@ export default function Search({stateChanger}) {
         setPage(0)
     }
 
-    function handleKeyDown(e) {
-        if (e.key === 'Enter' && e.target.value !== "") {
+    // function handleKeyDown(e) {
+    //     if (e.key === 'Enter' && e.target.value !== "") {
             
-        }
-    }
+    //     }
+    // }
 
   return (
     <div className='searchbar'>

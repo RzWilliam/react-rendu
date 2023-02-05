@@ -107,6 +107,11 @@
 
         .avatar{
             justify-content: end;
+
+            .dropdown-item{
+                margin: 0;
+                cursor: pointer;
+            }
         }
     }
 
@@ -382,3 +387,15 @@
     color: black;
 }
 
+.selectContainer{
+    select, .select{
+        width: 33%;
+        transition: .5s;
+        font-weight: 600;
+
+        img{
+            max-width: 24px;
+            margin-right: 10px;
+        }
+    }
+}

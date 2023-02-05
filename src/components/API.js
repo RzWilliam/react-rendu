@@ -12,23 +12,13 @@ import WIND from "../assets/monsters/WIND.png"
 import SPELL from "../assets/monsters/SPELL.png"
 import TRAP from "../assets/monsters/TRAP.png"
 import lvl from "../assets/monsters/LEVEL.png"
+import Buttons from "./Buttons";
+import Cards from "./Cards";
 
 export default function API(props){
 
-    const [error, setError] = React.useState(null);
     const [isLoaded, setIsLoaded] = React.useState(false);
-    const [items, setItems] = React.useState([]);
-    const {page, setPage} = useContext(ApiContext)
-
-    function previousPage(){
-      setPage(page-1)
-      window.scrollTo(0, 0)
-    }
-
-    function nextPage(){
-        setPage(page + 1)
-        window.scrollTo(0, 0)
-    }
+    const {page, setItems, setError, type, race, level, attribute} = useContext(ApiContext)
 
     const [cardClicked, setCardClicked] = useState(null)
     function handleClick(e){
@@ -39,8 +29,10 @@ export default function API(props){
       setCardClicked(null)
     }
 
-    let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page*20}${props.type ? "&type="+props.type : ''}${props.fname ? "&fname="+props.fname : ''}${props.atk ? "&atk="+props.atk : ''}`
+    let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page*20}${type ?type : ''}${props.fname ? "&fname="+props.fname : ''}${race ? race : ''}${level ? '&level='+level : ''}${attribute ? '&attribute='+attribute : ''}`
+
     React.useEffect(() => {
+        // console.log(url)
         fetch(url)
           .then(res => res.json())
           .then(
@@ -75,7 +67,7 @@ export default function API(props){
                 ))}
                 {items.length < 1 && error && <p>{error}</p>}
 
-                  {cardClicked ? 
+                  {cardClicked && 
                   
                   <section className="card_detail">
                     <div className={`card_info ${cardClicked.type}`}>
@@ -121,23 +113,12 @@ export default function API(props){
                     <div src={close} onClick={handleClose} className="black_bg"></div>
                   </section> 
                 
-                : "" }
+                }
 
                 
-
-            </section>
-            <div className="btn_prev_next">
-              {page > 0 && 
-                <button onClick={previousPage}>
-                  Previous Page
-                </button>
-              }
-              {items.length > 19 &&
-                <button onClick={nextPage}>
-                  Next Page
-                </button>
-              }
             </div>
+            <Cards/>
+            <Buttons/>
         </>
     )
 }
