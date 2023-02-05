@@ -44,7 +44,7 @@ export default function Filter() {
         setPage(0)
         setType(type.current.props.value === null ? null : type.current.props.value.value)
         if(type.current.props.value.value === "&atk=gt"){
-          setRace(monsterType.current.props.value === "Choose a type of monster ..." ? null : monsterType.current.props.value.value)
+          setRace(monsterType.current.props.value === null ? null : monsterType.current.props.value.value)
           setLevel(monsterLevel.current.props.value === null ? null : monsterLevel.current.props.value.value)
           setAttribute(monsterAttribute.current.props.value === null ? null : monsterAttribute.current.props.value.value)
         } else if (type.current.props.value.value === "&type=Spell%20Card"){
